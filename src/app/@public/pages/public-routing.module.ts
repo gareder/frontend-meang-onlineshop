@@ -10,6 +10,8 @@ const routes: Routes = [
       // Lazy load with the loadChildren: () => import
       { path: '', loadChildren: () => import('./home/home.module').then(m => m.HomeModule) },
       { path: 'contact', loadChildren: () => import('./contact/contact.module').then(m => m.ContactModule) },
+      { path: 'login', loadChildren: () => import('./forms/login/login.module').then(m => m.LoginModule) },
+      { path: 'register', loadChildren: () => import('./forms/register/register.module').then(m => m.RegisterModule) }
     ]
   }
 ];

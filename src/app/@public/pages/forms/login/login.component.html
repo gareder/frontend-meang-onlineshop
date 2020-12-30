@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg"></div>
+    <div class="col-lg-6">
+      <form (ngSubmit)="init()" #form="ngForm">
+        <h1>Log in</h1>
+        <p>Type your credentials to log in</p>
+        <p class="psw">
+          Don't have an account? Click
+          <a href="#">here</a> to create a free account
+        </p>
+        <hr />
+        <label for="email"><b>Email</b></label>
+        <input type="text" placeholder="Email" name="email" required #email="ngModel" [(ngModel)]="login.email"
+              class="form-control" [ngClass]="{'is-valid': !email.invalid, 'is-invalid': email.invalid}"
+              pattern="^[a-zA-Z0-9._]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$" />
+        <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+          <div *ngIf="email.errors.required">
+            Please type a valid email address.
+          </div>
+          <div *ngIf="email.errors && email.errors.pattern">
+            Email is not right. IE: email@example.com
+          </div>
+        </div>
+        <label for="password"><b>Password</b></label>
+        <input type="password" placeholder="Password" name="password" required #password="ngModel" [(ngModel)]="login.password"
+              class="form-control" [ngClass]="{'is-valid': !password.invalid, 'is-invalid': password.invalid}" minlength="4" />
+        <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
+          <div *ngIf="password.errors.required">
+            Password is required and must have at least 4 characters.
+          </div>
+          <!-- <div *ngIf="password.errors && password.errors.minlength">
+            Password must have at least 4 characters.
+          </div> -->
+        </div>
+        <div class="row">
+          <div class="col-lg">
+            <button type="submit" class="signup-btn" [disabled]="form.invalid">Log in</button>
+          </div>
+        </div>
+        <div class="more-options">
+          <p class="psw">
+            Forgot <a [routerLink]="['/forgot']">password?</a>
+          </p>
+        </div>
+      </form>
+    </div>
+    <div class="col-lg"></div>
+  </div>
+</div>
