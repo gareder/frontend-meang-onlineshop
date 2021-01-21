@@ -6,6 +6,8 @@ export interface IRegisterForm {
   email: string;
   birthday: string;
   password: string;
+  role?: string;
+  active?: boolean;
 }
 
 export interface IResultRegister {
