@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg"></div>
+    <div class="col-lg-6">
+      <form (ngSubmit)="reset()" #form="ngForm">
+        <h2>Add your email</h2>
+        <p>We'll email you a link to reset your password</p>
+        <hr />
+        <div class="row">
+          <div class="col-lg">
+            <label for="mail">Email</label>
+            <input type="text" placeholder="Email" name="email" required #email="ngModel" [(ngModel)]="emailValue"
+              class="form-control" [ngClass]="{'is-valid': !email.invalid, 'is-invalid': email.invalid}"
+              [pattern]="pattern" />
+            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+              <div *ngIf="email.errors.required">
+                Please type a valid email address.
+              </div>
+              <div *ngIf="email.errors && email.errors.pattern">
+                Email is not right. IE: email@example.com
+              </div>
+            </div>
+            <input type="submit" class="signup-btn" [disabled]="form.invalid" value="Reset Password" />
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-lg"></div>
+  </div>
+</div>

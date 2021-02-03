@@ -26,12 +26,9 @@
         <input type="password" placeholder="Password" name="password" required #password="ngModel" [(ngModel)]="login.password"
               class="form-control" [ngClass]="{'is-valid': !password.invalid, 'is-invalid': password.invalid}" minlength="4" />
         <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
-          <div *ngIf="password.errors.required">
+          <div *ngIf="password.errors.required || password.errors.minlength">
             Password is required and must have at least 4 characters.
           </div>
-          <!-- <div *ngIf="password.errors && password.errors.minlength">
-            Password must have at least 4 characters.
-          </div> -->
         </div>
         <div class="row">
           <div class="col-lg">
@@ -40,7 +37,7 @@
         </div>
         <div class="more-options">
           <p class="psw">
-            Forgot <a [routerLink]="['/forgot']">password?</a>
+            Forgot <a [routerLink]="['/forgot']">password</a>?
           </p>
         </div>
       </form>

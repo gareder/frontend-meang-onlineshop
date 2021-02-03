@@ -28,7 +28,6 @@ export class RegisterComponent implements OnInit {
     const data = new Date();
     data.setFullYear(data.getFullYear() - 18);
     this.register.birthday = (data.toISOString()).substring(0, 10);
-    console.log(this.register);
   }
 
   private formatNumbers(num: number | string) {
@@ -36,7 +35,6 @@ export class RegisterComponent implements OnInit {
   }
 
   dataAsign($event) {
-    console.log('Register date', $event);
     const date = `${$event.year}-${this.formatNumbers($event.month)}-${this.formatNumbers($event.day)}`;
     this.register.birthday = date;
   }
@@ -44,7 +42,6 @@ export class RegisterComponent implements OnInit {
   add() {
     console.log('Datos', this.register);
     this.api.register(this.register).subscribe((result: IResultRegister) => {
-      console.log(result);
       if (!result.status) {
         basicAlert(TYPE_ALERT.WARNING, result.message);
         return;

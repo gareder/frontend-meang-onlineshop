@@ -22,7 +22,6 @@ export class LoginComponent {
   init() {
     console.log(this.login);
     this.auth.login(this.login.email, this.login.password).subscribe((result: IResultLogin) => {
-      console.log(result);
       if (result.status) {
         if (result.token !== null) {
           // Save session
