@@ -5,6 +5,7 @@ import { IResultData, IInfoPage } from '../../@core/interfaces/result-data.inter
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ITableColums } from '@core/interfaces/table-columns.interface';
+import { ACTIVE_FILTERS } from '@core/constants/filters';
 
 @Component({
   selector: 'app-table-pagination',
@@ -19,6 +20,7 @@ export class TablePaginationComponent implements OnInit {
   @Input() include = true;
   @Input() resultData: IResultData;
   @Input() tableColumns: Array<ITableColums>;
+  @Input() filterActiveValues: ACTIVE_FILTERS = ACTIVE_FILTERS.ACTIVE;
   @Output() manageItem = new EventEmitter<Array<any>>();
   infoPage: IInfoPage;
   data$: Observable<any>;
@@ -48,7 +50,8 @@ export class TablePaginationComponent implements OnInit {
     const variables = {
       page: this.infoPage.page,
       itemsPage: this.infoPage.itemsPage,
-      include: this.include
+      include: this.include,
+      active: this.filterActiveValues
     };
     this.data$ = this.tablePagserv.getCollectionData(this.query, variables, {}).pipe(map((result: any) => {
       const data = result[this.resultData.definitionKey];
