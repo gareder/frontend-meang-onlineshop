@@ -91,3 +91,23 @@ export async function optionsWithDetails(
     }
   });
 }
+
+export async function loadData(title: string, html: string) {
+  Swal.fire({
+    title,
+    html,
+    didOpen: () => {
+      Swal.showLoading();
+    }
+  }).then((result) => {
+    /* Read more about handling dismissals below */
+    if (result.dismiss === Swal.DismissReason.timer) {
+      console.log('I was closed by the timer');
+    }
+  });
+}
+
+
+export const closeAlert = () => {
+  Swal.close();
+};

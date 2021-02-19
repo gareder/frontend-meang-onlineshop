@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ITableColums } from '@core/interfaces/table-columns.interface';
 import { ACTIVE_FILTERS } from '@core/constants/filters';
+import { closeAlert, loadData } from '@shared/alerts/alerts';
 
 @Component({
   selector: 'app-table-pagination',
@@ -24,6 +25,7 @@ export class TablePaginationComponent implements OnInit {
   @Output() manageItem = new EventEmitter<Array<any>>();
   infoPage: IInfoPage;
   data$: Observable<any>;
+  loading: boolean;
 
   constructor(private tablePagserv: TablePaginationService) { }
 
@@ -47,6 +49,8 @@ export class TablePaginationComponent implements OnInit {
   }
 
   loadData() {
+    this.loading = true;
+    loadData('Loading', 'Please wait');
     const variables = {
       page: this.infoPage.page,
       itemsPage: this.infoPage.itemsPage,
@@ -57,6 +61,8 @@ export class TablePaginationComponent implements OnInit {
       const data = result[this.resultData.definitionKey];
       this.infoPage.pages = data.info.pages;
       this.infoPage.total = data.info.total;
+      this.loading = false;
+      closeAlert();
       return data[this.resultData.listKey];
     }));
   }
@@ -67,7 +73,6 @@ export class TablePaginationComponent implements OnInit {
   }
 
   manageAction(action: string, data: any) {
-    console.log(action, data);
     this.manageItem.emit([action, data]);
   }
 

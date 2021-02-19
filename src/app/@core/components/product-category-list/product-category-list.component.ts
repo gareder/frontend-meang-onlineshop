@@ -10,6 +10,7 @@ export class ProductCategoryListComponent {
 
   @Input() title = 'Category Title';
   @Input() productsList: Array<IProduct> = [];
+  @Input() description = '';
 
   constructor() { }
 

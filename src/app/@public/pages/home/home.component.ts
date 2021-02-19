@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ICarouselItem } from '@mugan86/ng-shop-ui/lib/interfaces/carousel-item.interface';
-import carouselItems from '@data/carousel.json';
 import { ProductsService } from '@core/services/products.service';
-import { ACTIVE_FILTERS } from '@core/constants/filters';
-import { IProduct } from '@mugan86/ng-shop-ui/lib/interfaces/product.interface';
+import { loadData, closeAlert } from '@shared/alerts/alerts';
+
 
 @Component({
   selector: 'app-home',
@@ -17,30 +16,35 @@ export class HomeComponent implements OnInit {
   listOne;
   listTwo;
   listThree;
+  loading: boolean;
 
   constructor(private productsService: ProductsService) { }
 
   ngOnInit(): void {
-    this.productsService.getByLastUnitsOffers(1, 6, ACTIVE_FILTERS.ACTIVE, true, -1, 15).subscribe((result: IProduct[]) => {
-      result.map((item: IProduct) => {
-        this.items.push({
-          id: item.id,
-          title: item.name,
-          description: item.description,
-          background: item.img,
-          url: ''
-        });
+    this.loading = true;
+    loadData('Loading', 'Please wait');
+    this.productsService.getHomePage().subscribe(data => {
+      this.listOne = data.pc;
+      this.listTwo = data.topPrice;
+      this.listThree = data.ps4;
+      this.items = this.manageCarousel(data.carousel);
+      closeAlert();
+      this.loading = false;
+    });
+  }
+
+  private manageCarousel(list) {
+    const itemsValue: Array<ICarouselItem> = [];
+    list.shopProducts.map(item => {
+      itemsValue.push({
+        id: item.id,
+        title: item.product.name,
+        description: item.platform.name,
+        background: item.product.img,
+        url: ''
       });
     });
-    this.productsService.getByLastUnitsOffers(1, 4, ACTIVE_FILTERS.ACTIVE, true, 35, -1).subscribe(result => {
-      this.listTwo = result;
-    });
-    this.productsService.getByPlatform(1, 4, ACTIVE_FILTERS.ACTIVE, '4', true).subscribe(result => {
-      this.listOne = result;
-    });
-    this.productsService.getByPlatform(1, 4, ACTIVE_FILTERS.ACTIVE, '18', true).subscribe(result => {
-      this.listOne = result;
-    });
+    return itemsValue;
   }
 
 }

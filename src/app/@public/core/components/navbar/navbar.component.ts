@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@core/services/auth.service';
 import { IMeData } from '../../../../@core/interfaces/session.interface';
+import shopMenuItems from '@data/menus/shop.json';
+import { IMenuItem } from '@core/interfaces/menu-item.interface';
+
 
 @Component({
   selector: 'app-navbar',
@@ -15,6 +18,7 @@ export class NavbarComponent implements OnInit {
   access = false;
   role: string;
   userLabel = '';
+  menuItems: Array<IMenuItem> = shopMenuItems;
 
   constructor(private authService: AuthService) {
     this.authService.accessVar$.subscribe((result) => {

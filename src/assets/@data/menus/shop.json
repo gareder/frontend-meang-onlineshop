@@ -1,0 +1,37 @@
+[
+  {
+    "url": "/",
+    "label": "Home",
+    "icon": ""
+  },
+  {
+    "url": "/games/platforms/sony",
+    "label": "Sony Playstation Games",
+    "icon": ""
+  },
+  {
+    "url": "/games/platforms/microsoft",
+    "label": "Microsoft Games",
+    "icon": ""
+  },
+  {
+    "url": "/games/platforms/nintendo",
+    "label": "Nintendo Games",
+    "icon": ""
+  },
+  {
+    "url": "/games/promotions/last-units",
+    "label": "Games about to run out of stock",
+    "icon": ""
+  },
+  {
+    "url": "/games/promotions/offers",
+    "label": "Games with the last units and on sale",
+    "icon": ""
+  },
+  {
+    "url": "/contact",
+    "label": "Contact",
+    "icon": ""
+  }
+]

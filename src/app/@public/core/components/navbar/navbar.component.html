@@ -4,11 +4,8 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav">
-      <li class="nav-item">
-      <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/contact" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Contact</a>
+      <li *ngFor="let item of menuItems" class="nav-item">
+      <a class="nav-link" [routerLink]="item.url" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">{{item.label}}</a>
       </li>
     </ul>
     <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
