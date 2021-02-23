@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { IProduct } from '@mugan86/ng-shop-ui/lib/interfaces/product.interface';
 
 @Component({
@@ -12,7 +13,7 @@ export class ProductCategoryListComponent {
   @Input() productsList: Array<IProduct> = [];
   @Input() description = '';
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   addToCart($event: IProduct) {
     // Usar la información del producto pasado para llevarlo al carrito de compra
@@ -21,8 +22,7 @@ export class ProductCategoryListComponent {
   }
 
   showProductDetails($event: IProduct) {
-    console.log('Show Details');
-    console.log($event);
+    this.router.navigateByUrl(`/games/details/${+$event.id}`);
   }
 
 }

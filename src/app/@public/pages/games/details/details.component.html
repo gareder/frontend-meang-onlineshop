@@ -1,0 +1,60 @@
+<!-- Page Content -->
+<div *ngIf="product && !loading" class="container">
+  <!-- Portfolio Item Row -->
+  <div class="row">
+    <div class="col-md-1" id="screens-sections">
+      <img *ngFor="let miniImg of screens; let i = index" class="img-fluid mini" [src]="miniImg" alt="Screen {{i}}" (click)="selectImgMain(i)">
+    </div>
+    <div class="col-md-7">
+      <img class="img-fluid main-img" [src]="selectImage" alt="">
+    </div>
+    <div class="col-md-4">
+      <h3 class="my-3">{{product.name}} ({{product.description}})</h3>
+      <div class="row">
+        <div class="col-lg-12">
+          <shop-rating [rating]="product.rating"></shop-rating>
+        </div>
+        <div class="col-lg-12">
+          <ng-template #noDiscount>
+            <div class="price">
+              {{currencySelect}} {{product.price}}
+            </div>
+          </ng-template>
+          <div *ngIf="product.discount; else noDiscount" class="price">
+            {{currencySelect}} {{product.priceDiscount | number}}
+            <span>
+              {{currencySelect}} {{product.price | number}}
+            </span>
+            <span class="discount-percentage">
+              ({{product.discount}} %)
+            </span>
+          </div>
+        </div>
+        <div class="col-lg-12">
+          Stock: {{product.stock}}
+          <hr>
+          <shop-qty-selector [qty]="product.qty" [stock]="product.stock" (updateValue)="changeValue($event)"></shop-qty-selector>
+        </div>
+      </div>
+      <br>
+      <span class="5h">Platforms:</span>&nbsp;
+      <select (change)="selectOtherPlatform($event)">
+        <option [value]="product.id">{{product.description}}</option>
+        <option *ngFor="let opt of relationalProducts" [value]="opt.id">{{opt.platform.name}}</option>
+      </select>
+    </div>
+  </div>
+  <hr>
+  <!-- /.row -->
+  <!-- Related Projects Row -->
+  <h4 class="my-4">Games you might be interested in</h4>
+  <div class="row">
+    <div *ngFor="let itemInfo of randomItems" class="col-md-2 col-sm-6 mb-4">
+      <a routerLink="/games/details/{{itemInfo.id}}" title="{{itemInfo.name}} ({{itemInfo.description}})">
+        <img class="img-fluid more-games" [src]="itemInfo.img" alt="{{itemInfo.name}} ({{itemInfo.description}})">
+      </a>
+    </div>
+  </div>
+  <!-- /.row -->
+</div>
+<!-- /.container -->

@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 import { SHOP_PRODUCT_FRAGMENT } from '@graphql/operations/fragment/shop-product';
 
 export const HOME_PAGE = gql`
-  query HomePageInfo($showPlatform: Boolean = false) {
+  query HomePageInfo($showPlatform: Boolean = false, $relationScreens: Boolean = false) {
     carousel: shopProductsOffersLast(itemsPage: 6, topPrice: 30, random: true) {
       shopProducts {
         ...ShopProductObject
