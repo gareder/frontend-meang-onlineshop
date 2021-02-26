@@ -18,6 +18,9 @@
       <li class="nav-item" *ngIf="!access">
         <a class="nav-link" routerLink="/register" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Register</a>
       </li>
+      <li class="nav-item" *ngIf="!access">
+        <a class="nav-link" (click)="open()"><i class="fas fa-shopping-cart"></i></a>
+      </li>
       <li class="nav-item dropdown" *ngIf="access">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           {{ userLabel }}

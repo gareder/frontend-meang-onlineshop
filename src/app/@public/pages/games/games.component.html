@@ -1,5 +1,6 @@
 <div *ngIf="infoPage && !loading" class="container">
-  <app-product-category-list [title]="gamesPageInfo.title" [productsList]="productsList" [description]="gamesPageInfo.description"></app-product-category-list>
+  <app-product-category-list [title]="gamesPageInfo.title" [productsList]="productsList"
+                             [description]="gamesPageInfo.description" [showDesc]="true"></app-product-category-list>
   <div class="d-flex justify-content-between p-2">
     <ngb-pagination [collectionSize]="infoPage.total" [(page)]="selectPage"
                     [pageSize]="infoPage.itemsPage" (pageChange)="loadData()" [maxSize]="15"

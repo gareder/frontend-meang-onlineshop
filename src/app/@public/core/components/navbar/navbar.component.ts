@@ -3,6 +3,7 @@ import { AuthService } from '@core/services/auth.service';
 import { IMeData } from '../../../../@core/interfaces/session.interface';
 import shopMenuItems from '@data/menus/shop.json';
 import { IMenuItem } from '@core/interfaces/menu-item.interface';
+import { CartService } from '@shop/core/services/cart.service';
 
 
 @Component({
@@ -20,7 +21,7 @@ export class NavbarComponent implements OnInit {
   userLabel = '';
   menuItems: Array<IMenuItem> = shopMenuItems;
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private cartService: CartService) {
     this.authService.accessVar$.subscribe((result) => {
       this.session = result;
       this.access = this.session.status;
@@ -34,6 +35,10 @@ export class NavbarComponent implements OnInit {
 
   logout() {
     this.authService.resetSession();
+  }
+
+  open() {
+    this.cartService.openNav();
   }
 
 }
