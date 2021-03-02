@@ -4,6 +4,9 @@ import { IMeData } from '../../../../@core/interfaces/session.interface';
 import shopMenuItems from '@data/menus/shop.json';
 import { IMenuItem } from '@core/interfaces/menu-item.interface';
 import { CartService } from '@shop/core/services/cart.service';
+import { REDIRECTS_ROUTES } from '@core/constants/config';
+import { Router } from '@angular/router';
+import { ICart } from '@shop/core/components/shopping-cart/shopping-cart.interface';
 
 
 @Component({
@@ -20,20 +23,32 @@ export class NavbarComponent implements OnInit {
   role: string;
   userLabel = '';
   menuItems: Array<IMenuItem> = shopMenuItems;
+  cartItemsTotal: number;
 
-  constructor(private authService: AuthService, private cartService: CartService) {
+  constructor(private authService: AuthService, private cartService: CartService, private router: Router) {
     this.authService.accessVar$.subscribe((result) => {
       this.session = result;
       this.access = this.session.status;
       this.role = this.session.user?.role;
       this.userLabel = `${this.session.user?.name} ${this.session.user?.lastname}`;
     });
+    this.cartService.itemsVar$.subscribe((data: ICart) => {
+      if (data !== undefined && data !== null) {
+        this.cartItemsTotal = data.subtotal;
+      }
+    });
   }
 
   ngOnInit(): void {
+    this.cartItemsTotal = this.cartService.initilize().subtotal;
   }
 
   logout() {
+    // Path to redirect:
+    if (REDIRECTS_ROUTES.includes(this.router.url)) {
+      // If we find the path, we redirect
+      localStorage.setItem('route_after_login', this.router.url);
+    }
     this.authService.resetSession();
   }
 

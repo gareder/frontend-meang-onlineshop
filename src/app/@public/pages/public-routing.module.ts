@@ -17,7 +17,8 @@ const routes: Routes = [
       // tslint:disable-next-line: max-line-length
       { path: 'reset/:token', loadChildren: () => import('./forms/change-password/change-password.module').then(m => m.ChangePasswordModule)},
       { path: 'games/details/:id', loadChildren: () => import('./games/details/details.module').then(m => m.DetailsModule)},
-      { path: 'games/:type/:filter', loadChildren: () => import('./games/games.module').then(m => m.GamesModule)}
+      { path: 'games/:type/:filter', loadChildren: () => import('./games/games.module').then(m => m.GamesModule)},
+      { path: 'checkout', loadChildren: () => import('./forms/checkout/checkout.module').then(m => m.CheckoutModule)}
     ]
   }
 ];
