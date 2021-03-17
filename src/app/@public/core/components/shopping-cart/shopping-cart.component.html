@@ -21,7 +21,7 @@
           <div class="col-lg">
             <ng-template #noDiscount>
               <div class="price">
-                {{currencySelect}} {{product.price}}
+                {{currencySelect}} {{product.price * product.qty}}
               </div>
             </ng-template>
             <div *ngIf="product.discount; else noDiscount" class="price">

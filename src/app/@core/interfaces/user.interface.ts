@@ -6,4 +6,5 @@ export interface IUser {
   registerDate?: string;
   birthdate?: string;
   role: string;
+  stripeCustomer?: string;
 }

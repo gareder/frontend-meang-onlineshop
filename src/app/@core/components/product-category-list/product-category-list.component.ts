@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { IProduct } from '@mugan86/ng-shop-ui/lib/interfaces/product.interface';
 import { CartService } from '@shop/core/services/cart.service';
+import { CURRENCIES_SYMBOL, CURRENCY_LIST } from '@mugan86/ng-shop-ui';
 
 @Component({
   selector: 'app-product-category-list',
@@ -14,6 +15,7 @@ export class ProductCategoryListComponent {
   @Input() productsList: Array<IProduct> = [];
   @Input() description = '';
   @Input() showDesc: boolean;
+  currency = '$';
 
   constructor(private router: Router, private cartService: CartService) { }
 

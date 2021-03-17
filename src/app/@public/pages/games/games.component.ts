@@ -7,6 +7,8 @@ import { ActivatedRoute } from '@angular/router';
 import { IGamePageInfo } from './games-page-info.interface';
 import { GAMES_PAGES_INFO, TYPE_OPERATION } from './game.constants';
 import { loadData, closeAlert } from '@shared/alerts/alerts';
+import { CURRENCY_SELECT } from '../../../@core/constants/config';
+import { CURRENCIES_SYMBOL, CURRENCY_LIST } from '@mugan86/ng-shop-ui';
 
 @Component({
   selector: 'app-games',
