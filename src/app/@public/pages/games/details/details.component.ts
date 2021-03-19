@@ -29,6 +29,7 @@ export class DetailsComponent implements OnInit {
       this.loading = true;
       loadData('Loading', 'Please wait');
       this.loadDataValue(+params.id);
+      this.updateListener(+params.id);
     });
     this.cartService.itemsVar$.subscribe((data: ICart) => {
       console.log(data);
@@ -53,7 +54,10 @@ export class DetailsComponent implements OnInit {
   }
 
   selectOtherPlatform($event) {
-    this.loadDataValue(+$event.target.value);
+    const id = +$event.target.value;
+    this.loadDataValue(id);
+    this.updateListener(id);
+    window.history.replaceState({}, '', `/#/games/details/${id}`);
   }
 
   loadDataValue(id: number) {
@@ -73,6 +77,21 @@ export class DetailsComponent implements OnInit {
 
   addToCart() {
     this.cartService.manageProduct(this.product);
+  }
+
+  updateListener(id: number) {
+    console.log('listening', id);
+    this.productsService.stockUpdateListener(id).subscribe((result) => {
+      console.log('Updating', result);
+      this.product.stock = result.stock;
+      // Check selected products > stock
+      if (this.product.qty > this.product.stock) {
+        this.product.qty = this.product.stock;
+      }
+      if (this.product.stock === 0) {
+        this.product.qty = 1;
+      }
+    });
   }
 
 }

@@ -16,6 +16,7 @@ import { ICart } from '../../../core/components/shopping-cart/shopping-cart.inte
 import { ICharge } from '@core/interfaces/stripe/charge.interface';
 import { IMail } from '@core/interfaces/mail.interface';
 import { MailService } from '@core/services/mail.service';
+import { IProduct } from '@mugan86/ng-shop-ui/lib/interfaces/product.interface';
 
 @Component({
   selector: 'app-checkout',
@@ -61,9 +62,17 @@ export class CheckoutComponent implements OnInit {
           customer: this.meData.user.stripeCustomer,
           currency: CURRENCY_CODE
         };
+        const stockManage: Array<IStock> = [];
+        this.cartService.products.map((item: IProduct) => {
+          stockManage.push({
+            id: +item.id,
+            increment: item.qty * (-1)
+          });
+        });
         loadData('Processing payment', 'Please wait');
         // Send data and make payment
-        this.chargeService.pay(payment).pipe(take(1)).subscribe(async(result: {status: boolean, message: string, charge: ICharge}) => {
+        this.chargeService.pay(payment, stockManage).pipe(take(1))
+            .subscribe(async(result: {status: boolean, message: string, charge: ICharge}) => {
           if (result.status) {
             console.log('OK');
             console.log(result.charge);

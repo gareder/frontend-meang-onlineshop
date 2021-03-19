@@ -1,11 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { LOGIN_QUERY, ME_DATA_QUERY } from '@graphql/operations/query/user';
 import { map } from 'rxjs/operators';
-import { USERS_LIST_QUERY } from '@graphql/operations/query/user';
 import { DocumentNode } from 'graphql';
-import { IRegisterForm } from '@core/interfaces/register.interface';
-import { REGISTER_USER } from '@graphql/operations/mutation/user';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +26,15 @@ export class ApiService {
       mutation,
       variables,
       context
+    }).pipe(map((result) => {
+      return result.data;
+    }));
+  }
+
+  protected subscription(subscription: DocumentNode, variables: object = {}) {
+    return this.apollo.subscribe({
+      query: subscription,
+      variables,
     }).pipe(map((result) => {
       return result.data;
     }));

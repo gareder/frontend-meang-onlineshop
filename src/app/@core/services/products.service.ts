@@ -3,6 +3,7 @@ import { ACTIVE_FILTERS } from '@core/constants/filters';
 import { DETAILS_PAGE } from '@graphql/operations/query/details-page';
 import { HOME_PAGE } from '@graphql/operations/query/home-page';
 import { SHOP_LAST_UNITS_OFFERS, SHOP_PRODUCT_BY_PLATFORM, SHOP_PRODUCT_DETAILS, SHOP_PRODUCT_RANDOM_ITEMS } from '@graphql/operations/query/shop-product';
+import { SUBSCRIPTIONS_PRODUCT_SELECT_STOCK } from '@graphql/operations/subscription/shop-product';
 import { ApiService } from '@graphql/services/api.service';
 import { IProduct } from '@mugan86/ng-shop-ui/lib/interfaces/product.interface';
 import { Apollo } from 'apollo-angular';
@@ -94,6 +95,12 @@ export class ProductsService extends ApiService {
       price: shopObject.price,
       stock: shopObject.stock
     };
+  }
+
+  stockUpdateListener(id: number) {
+    return this.subscription(SUBSCRIPTIONS_PRODUCT_SELECT_STOCK, { id }).pipe(map((result: any) => {
+      return result.selectProductStockUpdate;
+    }));
   }
 
 }
