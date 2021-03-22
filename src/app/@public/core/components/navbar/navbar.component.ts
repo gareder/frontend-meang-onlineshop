@@ -7,6 +7,7 @@ import { CartService } from '@shop/core/services/cart.service';
 import { REDIRECTS_ROUTES } from '@core/constants/config';
 import { Router } from '@angular/router';
 import { ICart } from '@shop/core/components/shopping-cart/shopping-cart.interface';
+import { optionsWithDetails } from '@shared/alerts/alerts';
 
 
 @Component({
@@ -43,13 +44,8 @@ export class NavbarComponent implements OnInit {
     this.cartItemsTotal = this.cartService.initilize().subtotal;
   }
 
-  logout() {
-    // Path to redirect:
-    if (REDIRECTS_ROUTES.includes(this.router.url)) {
-      // If we find the path, we redirect
-      localStorage.setItem('route_after_login', this.router.url);
-    }
-    this.authService.resetSession();
+  async logout() {
+    this.authService.resetSession(this.router.url);
   }
 
   open() {

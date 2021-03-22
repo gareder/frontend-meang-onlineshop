@@ -11,6 +11,7 @@ const routes: Routes = [
       // Lazy load with the loadChildren: () => import
       { path: '', loadChildren: () => import('./home/home.module').then(m => m.HomeModule) },
       { path: 'contact', loadChildren: () => import('./contact/contact.module').then(m => m.ContactModule) },
+      { path: 'faq', loadChildren: () => import('./faq/faq.module').then(m => m.FaqModule)},
       { path: 'login', loadChildren: () => import('./forms/login/login.module').then(m => m.LoginModule) },
       { path: 'register', loadChildren: () => import('./forms/register/register.module').then(m => m.RegisterModule) },
       { path: 'active/:token', loadChildren: () => import('./forms/active/active.module').then(m => m.ActiveModule) },

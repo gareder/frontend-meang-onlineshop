@@ -1,8 +1,10 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { REDIRECTS_ROUTES } from '@core/constants/config';
 import { ISession, IMeData } from '@core/interfaces/session.interface';
 import { LOGIN_QUERY, ME_DATA_QUERY } from '@graphql/operations/query/user';
 import { ApiService } from '@graphql/services/api.service';
+import { optionsWithDetails } from '@shared/alerts/alerts';
 import { Apollo } from 'apollo-angular';
 import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -70,7 +72,15 @@ export class AuthService extends ApiService {
     return JSON.parse(localStorage.getItem('session'));
   }
 
-  resetSession() {
+  async resetSession(routesUrl: string = '') {
+    const result = await optionsWithDetails('Log out', `Are you sure you want to log out?`, 360, 'Yes, log out', 'No');
+    if (!result) {
+        return;
+    }
+    if (REDIRECTS_ROUTES.includes(routesUrl)) {
+      // If we find the path, we redirect
+      localStorage.setItem('route_after_login', routesUrl);
+    }
     localStorage.removeItem('session');
     this.updateSession({ status: false });
   }

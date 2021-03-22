@@ -17,6 +17,7 @@ import { ICharge } from '@core/interfaces/stripe/charge.interface';
 import { IMail } from '@core/interfaces/mail.interface';
 import { MailService } from '@core/services/mail.service';
 import { IProduct } from '@mugan86/ng-shop-ui/lib/interfaces/product.interface';
+import { IStock } from '@core/interfaces/stock.interface';
 
 @Component({
   selector: 'app-checkout',
