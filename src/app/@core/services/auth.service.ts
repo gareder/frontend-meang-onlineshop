@@ -34,11 +34,9 @@ export class AuthService extends ApiService {
         }
         this.updateSession(result);
       });
-      console.log('Session');
       return;
     }
     this.updateSession({ status: false });
-    console.log('No session');
   }
 
    // Consume API

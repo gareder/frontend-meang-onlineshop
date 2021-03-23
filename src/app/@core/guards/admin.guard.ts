@@ -16,22 +16,16 @@ export class AdminGuard implements CanActivateChild {
     state: RouterStateSnapshot): boolean {
     // Check there's a session
     if (this.auth.getSession() !== null) {
-      console.log('We are logged in');
       const dataDecode: any = this.decodeToken();
-      console.log(dataDecode);
       // Check token is not expired
       if (dataDecode.exp < new Date().getTime() / 1000) {
-        console.log('Expired session');
         this.redirect();
       }
       // User role is ADMIN
       if (dataDecode.user.role === 'ADMIN') {
-        console.log('Admin logged in');
         return true;
       }
-      console.log('Client role logged in');
     }
-    console.log('Theres no session');
     this.redirect();
   }
 
